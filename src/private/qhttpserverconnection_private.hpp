@@ -109,8 +109,6 @@ public:
 
             parse(buffer, readLength);
         }
-
-        onDispatchRequest();
     }
 
     void         onDispatchRequest() {

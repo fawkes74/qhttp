@@ -191,6 +191,7 @@ QHttpConnectionPrivate::headersComplete(http_parser* parser) {
     else
         emit q_ptr->newRequest(ilastRequest, ilastResponse);
 
+    emit ilastRequest->headersComplete();
     return 0;
 }
 
@@ -218,6 +219,7 @@ QHttpConnectionPrivate::messageComplete(http_parser*) {
      // request is ready to be dispatched
     ilastRequest->d_func()->isuccessful = true;
     ilastRequest->d_func()->ireadState  = QHttpRequestPrivate::EComplete;
+    onDispatchRequest();
     return 0;
 }
 

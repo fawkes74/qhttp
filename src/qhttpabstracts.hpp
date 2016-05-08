@@ -33,6 +33,7 @@ public:
 
 typedef std::function<void (QByteArray)>     TDataHandler;
 typedef std::function<void (void)>           TEndHandler;
+typedef std::function<void (void)>           THeadersCompleteHandler;
 
 ///////////////////////////////////////////////////////////////////////////////
 /** an interface for input (incoming) HTTP packets.
@@ -73,10 +74,11 @@ signals:
      */
     void                        end();
 
+    void                        headersComplete();
+
 public:
     /** optionally set a handler for data() signal.
      * @param dataHandler a std::function or lambda handler to receive incoming data.
-     * @note if you set this handler, the data() signal won't be emitted anymore.
      */
     void                        onData(const TDataHandler& dataHandler) {
         QObject::connect(this, &QHttpAbstractInput::data, [dataHandler](QByteArray data){
@@ -86,11 +88,19 @@ public:
 
     /** optionally set a handler for end() signal.
      * @param endHandler a std::function or lambda handler to receive end notification.
-     * @note if you set this handler, the end() signal won't be emitted anymore.
      */
     void                        onEnd(const TEndHandler& endHandler) {
         QObject::connect(this, &QHttpAbstractInput::end, [endHandler](){
             endHandler();
+        });
+    }
+
+    /** optionally set a handler for headersComplete() signal.
+     * @param headersCompleteHandler a std::function or lambda handler to receive headersComplete notification.
+     */
+    void                        onHeadersComplete(const THeadersCompleteHandler& headersCompleteHandler) {
+        QObject::connect(this, &QHttpAbstractInput::headersComplete, [headersCompleteHandler](){
+            headersCompleteHandler();
         });
     }
 
