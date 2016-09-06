@@ -48,3 +48,5 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_nullptr)
 set_target_properties(${PROJECT_NAME} PROPERTIES
   AUTOMOC ON
 )
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE QHTTP_EXPORT=1)
