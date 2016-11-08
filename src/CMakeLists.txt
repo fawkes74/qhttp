@@ -49,4 +49,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   AUTOMOC ON
 )
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE QHTTP_EXPORT=1)
+target_compile_definitions(${PROJECT_NAME} PUBLIC QHTTP_EXPORT=1)
